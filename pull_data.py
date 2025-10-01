@@ -2,9 +2,9 @@ from nba_api.stats.endpoints import playbyplayv2
 import nba_api.stats.endpoints as nba
 import nba_on_court as noc
 import time
+import pandas as pd
 
 
-seasons [str(year)+'-'str(year+1)[2:] for year in range(1996,2023)]
 season = input("Which season? \n")
 season_type = "Playoffs"
 #season_type = "Regular Season"
@@ -12,7 +12,7 @@ df = nba.TeamGameLogs(season_nullable=season,season_type_nullable=season_type).g
 
 
 
-GAME_IDS = sorted(df['GAME_ID'].unique().tolist())
+GAME_IDS = sorted(df['GAME_ID'].unique().tolist())[:3]
 gid  = GAME_IDS[0]
 pbp = playbyplayv2.PlayByPlayV2(game_id=gid).play_by_play.get_data_frame()
 PLAYBYPLAY = noc.players_on_court(pbp)
