@@ -12,17 +12,12 @@ df = nba.TeamGameLogs(season_nullable=season,season_type_nullable=season_type).g
 
 
 
-GAME_IDS = sorted(df['GAME_ID'].unique().tolist())[:3]
-gid  = GAME_IDS[0]
-pbp = playbyplayv2.PlayByPlayV2(game_id=gid).play_by_play.get_data_frame()
-PLAYBYPLAY = noc.players_on_court(pbp)
-PLAYBYPLAY['GAME_ID'] = gid 
+GAME_IDS = sorted(df['GAME_ID'].unique().tolist())
 for gid in GAME_IDS[1:]:
     pbp = playbyplayv2.PlayByPlayV2(game_id=gid).play_by_play.get_data_frame()
     PBP = noc.players_on_court(pbp)
     PBP['GAME_ID'] = gid
-    PLAYBYPLAY = pd.concat([PLAYBYPLAY,PBP])
+    PBP.to_csv(season+"_PBP.csv", index=False, header=False ,mode = 'a')
     print(gid)
     time.sleep(0.5)
 
-PLAYBYPLAY.to_csv(season+"_PBP.csv")
