@@ -38,3 +38,13 @@ for group,frame in MEM_lineups.groupby('lineup_prev'):
     transition_probs[group] = k_vals
 
 print(transition_probs)
+
+
+
+
+#denominator = S[S['lineup_prev']=='-1627759-1628369-1628401-201143-201950-']['tof'].sum()
+#denominator
+#Lambda = numerator/denominator
+#Lambda
+#1/Lambda
+#S[S['lineup_prev']=='-1627759-1628369-1628401-201143-201950-']['tof'].mean()
